@@ -38,7 +38,7 @@ public class Player {
         if(age<18)
             throw new PlayerException("年龄必须大于18岁");
         else
-        this.age = age;
+            this.age = age;
     }
 
     public String getDegree() {

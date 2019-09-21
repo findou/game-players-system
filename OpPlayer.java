@@ -13,26 +13,6 @@ public class OpPlayer {
         String name=sc.nextLine();
         System.out.println("请输入玩家年龄：");
         int age=sc.nextInt();
-        System.out.println("请选择输入玩家等级  例如  1：青铜  2：白银  3：黄金  4：钻石  5：王者");
-        int rank=sc.nextInt();
-        String degree="";
-        switch (rank){
-            case 1:
-                degree="青铜";
-                break;
-            case 2:
-                degree="白银";
-                break;
-            case 3:
-                degree="黄金";
-                break;
-            case 4:
-                degree="钻石";
-                break;
-            case 5:
-                degree="王者";
-                break;
-        }
         //创建一个玩家对象
         Player player = new Player();
         //游戏玩家年龄必须大于18岁方可录入系统，如不满足抛出异常
@@ -41,13 +21,39 @@ public class OpPlayer {
         }catch (PlayerException e){
             e.printStackTrace();
         }
-        player.setName(name);
-        player.setDegree(degree);
-        player.setRank(rank);
-        alist.add(player);
-        System.out.println("玩家信息录入成功！！");
-        return alist;
+        if(player.getAge()!=0){
+            System.out.println("请选择输入玩家等级  例如  1：青铜  2：白银  3：黄金  4：钻石  5：王者");
+            int rank=sc.nextInt();
+            String degree="";
+            switch (rank){
+                case 1:
+                    degree="青铜";
+                    break;
+                case 2:
+                    degree="白银";
+                    break;
+                case 3:
+                    degree="黄金";
+                    break;
+                case 4:
+                    degree="钻石";
+                    break;
+                case 5:
+                    degree="王者";
+                    break;
+            }
 
+            player.setName(name);
+            player.setDegree(degree);
+            player.setRank(rank);
+            alist.add(player);
+            System.out.println("玩家信息录入成功！！");
+        }else {
+            System.out.println("请重新输入玩家信息");
+            enterPlayer(alist);
+        }
+
+        return alist;
     }
     //显示玩家信息
     public static void print(ArrayList alist,int i){
@@ -63,25 +69,23 @@ public class OpPlayer {
     public static void showPlayer(ArrayList alist){
 //        最后按照段位排序规则来打印每一位游戏玩家信息
 //        需要用户输入（1：从高到低    0 ：从低到高）
-        System.out.println("请选择查看顺序 1：从高到低    0 ：从低到高 ");
+        System.out.println("请选择查看顺序 1：等级从高到低    0 ：等级从低到高 ");
         Scanner sc2=new Scanner(System.in);
         int c=sc2.nextInt();
         switch (c){
             case 1:
                 //从高到低排序//遍历找到randk 对应再list中的下标
-                for(int i=1;i<=5;i++){
+                for(int i=5;i>0;i--){
                     print(alist,i);
                 }
                 break;
             case 0:
                 //从低到高排序
-                for(int i=5;i>0;i--){
+                for(int i=1;i<=5;i++){
                     print(alist,i);
                 }
                 break;
         }
-
-
     }
 }
 
